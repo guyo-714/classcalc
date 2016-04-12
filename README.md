@@ -1,2 +1,2 @@
 # classcalc
-First of a series of classes to introduce TDD &amp; XP concepts
+First in a series to share XP concepts with the internal team
