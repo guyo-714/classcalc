@@ -8,7 +8,7 @@ strFormatter.extend(String.prototype);
 describe("Calculator", function(){
     var calculator;
 
-    before("general context", function(){
+    beforeEach("general context", function(){
         calculator = new Calculator();
     });
 

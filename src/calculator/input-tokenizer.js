@@ -7,7 +7,7 @@ const InputTokenizer = function (inputStr) {
     var _tokens = [];
 
     if (inputStr){
-        _inputBuffer = new InputBuffer(inputStr);
+        doTokenize(inputStr);
     }
 
     const doTokenize = function (inputStr) {
@@ -24,6 +24,8 @@ const InputTokenizer = function (inputStr) {
                 doGetNumberToken();
             } else if (isOperator(currentChar)) {
                 doGetOperatorToken();
+            } else {
+                throw new Error("invalid character");
             }
         }
     };
@@ -65,10 +67,7 @@ const InputTokenizer = function (inputStr) {
         }
 
         result = {"type": "operator", "value": value};
-        if (result.length > 0){
-            _tokens.push(result);
-
-        }
+        _tokens.push(result);
 
         return result;
     };
@@ -95,7 +94,8 @@ const InputTokenizer = function (inputStr) {
 
     return {
         tokenize: doTokenize,
-        getCount: doGetCount
+        getCount: doGetCount,
+        tokens: _tokens
     };
 };
 
