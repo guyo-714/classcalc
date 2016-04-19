@@ -1,14 +1,13 @@
 "use strict";
-var InputBuffer = require("./input-read-buffer");
+var InputBuffer = require("./input-read-buffer"),
+    Constants = require("./calculator-const"),
+    _ = require("lodash");
 
 
-const InputTokenizer = function (inputStr) {
+const InputTokenizer = function () {
     var _inputBuffer = null;
     var _tokens = [];
-
-    if (inputStr){
-        doTokenize(inputStr);
-    }
+    var _idx = 0;
 
     const doTokenize = function (inputStr) {
         if (inputStr){
@@ -25,7 +24,7 @@ const InputTokenizer = function (inputStr) {
             } else if (isOperator(currentChar)) {
                 doGetOperatorToken();
             } else {
-                throw new Error("invalid character");
+                throw new Error(Constants.error.INVALID_INPUT_CHAR);
             }
         }
     };
@@ -45,7 +44,7 @@ const InputTokenizer = function (inputStr) {
             }
         }
 
-        result = {"type":"numeric","value": value};
+        result = {"type":"number","value": value};
         _tokens.push(result);
 
         return result;
@@ -72,6 +71,10 @@ const InputTokenizer = function (inputStr) {
         return result;
     };
 
+    const doHastNext = function () {
+        return _tokens.length > 0;
+    };
+
     const doGetCount = function () {
         return _tokens.length;
     };
@@ -92,10 +95,45 @@ const InputTokenizer = function (inputStr) {
         return /[\+\-/\^\(\)=]/.test(inChar);
     };
 
+    const doToString = function () {
+        return _.join(_tokens, ",");
+    };
+
+    const doHasNext = function () {
+
+    };
+
+    const doPeek = function () {
+        var result = null;
+
+        if (_idx < _tokens.length){
+            result = _tokens[_idx];
+        } else {
+            throw new Error(Constants.error.NO_TOKENS_LEFT);
+        }
+
+        return result;
+    };
+
+    const doGetNext = function () {
+        var result = null;
+
+        result = doPeek();
+        _idx += 1;
+
+        return result;
+    };
+
+
+
     return {
         tokenize: doTokenize,
         getCount: doGetCount,
-        tokens: _tokens
+        tokens: _tokens,
+        toString: doToString,
+        hasNext: doHasNext,
+        next: doGetNext,
+        peek: doPeek
     };
 };
 

@@ -1,31 +1,49 @@
 "use strict";
 
-var CalculatorAction = require("./calculator-action");
+var CalculatorAction = require("./calculator-action"),
+    CalculatorTokenizer = require("./input-tokenizer"),
+    _ = require("lodash");
 
 var _calcAction = null;
 
-const Calculator = function(calcAction){
+const Calculator = function(){
 
-    if (calcAction) {
-        _calcAction = calcAction;
-    } else {
-        _calcAction = new CalculatorAction();
-    }
+    var _calcAction = new CalculatorAction();
 
-    const calculate = function(expString) {
+    const doParseFactor = function (tokenizer, stopChar) {
+        
+    };
+
+    const doParseTerm = function (tokenizer, stopChar) {
+        doParseFactor(tokenizer, stopChar);
+    };
+
+    const doParseExpression = function(tokenizer, stopChar){
+
+        if (tokenizer.hasNext()) {
+            const token = tokenizer.peek();
+            const tokenValue = token.value;
+
+            if (_.isEqual("+", tokenValue)){
+                doParseTerm(tokenizer, stopChar);
+                _calcAction.add();
+            } else if (_.isEqual("-", tokenValue)) {
+
+            } else {
+                doParseTerm(tokenizer, stopChar);
+            }
+        }
 
     };
 
-    const doParseExpression = function(){
+    const calculate = function(inputStr, stopChr) {
+        var tokenizer = new CalculatorTokenizer();
 
+        var result = doParseExpression(tokenizer, null);
+
+        return result;
     };
 
-    const doParseTerm = function () {
-
-    };
-
-    var doParseFactor = function (input, stopChar) {
-    };
 
     return {
       calculate: calculate,

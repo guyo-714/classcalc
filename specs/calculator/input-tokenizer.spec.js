@@ -1,7 +1,8 @@
 "use strict";
 
 var chai = require("chai"),
-    InputTokenizer = require("../../src/calculator/input-tokenizer");
+    InputTokenizer = require("../../src/calculator/input-tokenizer"),
+    _ = require("lodash");
 
 chai.should();
 
@@ -23,12 +24,26 @@ describe("Input Tokenizer", function () {
         tokenizer.getCount().should.equal(5);
     });
     
-    it("should thow \"invalid input character\" error if an invalid ", function(){
+    it("should throw \"invalid input character\" error if an invalid ", function(){
         try {
             tokenizer.tokenize("Hello");
         } catch (e){
-            e.should.equal("invalid input character");
+            e.message.should.equal("invalid input character");
         }
 
+    });
+
+    it("should have token values equal to", function () {
+        tokenizer.tokenize(INPUT_TO_TOKENIZE);
+        tokenizer.tokens[0].type.should.equal("number");
+        tokenizer.tokens[0].value.should.equal("1");
+        tokenizer.tokens[1].type.should.equal("operator");
+        tokenizer.tokens[1].value.should.equal("+");
+        tokenizer.tokens[2].type.should.equal("number");
+        tokenizer.tokens[2].value.should.equal("2");
+        tokenizer.tokens[3].type.should.equal("operator");
+        tokenizer.tokens[3].value.should.equal("+");
+        tokenizer.tokens[4].type.should.equal("number");
+        tokenizer.tokens[4].value.should.equal("22");
     });
 });

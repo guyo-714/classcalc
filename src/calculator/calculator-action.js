@@ -1,7 +1,8 @@
 "use strict";
 
 var Constants = require("./calculator-const"),
-    StrFormatter = require("string-format");
+    StrFormatter = require("string-format"),
+    _ = require("lodash");
 
 StrFormatter.extend(String.prototype);
 
@@ -102,7 +103,7 @@ const CalculatorAction = function(){
     const doToString = function () {
         var result;
 
-        result = "Item count: " +  _stack.length + " = " + _stack;
+        result = "Item count: " +  _stack.length + " = " +_.join(_stack, ",");
 
         return result;
     };
