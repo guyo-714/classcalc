@@ -39,6 +39,8 @@ const InputTokenizer = function () {
 
             if (isWhitespace(currentChar)){
                 break;
+            } else if (isNaN(currentChar)) {
+                break;
             } else {
                 value += currentChar;
             }
@@ -71,8 +73,8 @@ const InputTokenizer = function () {
         return result;
     };
 
-    const doHastNext = function () {
-        return _tokens.length > 0;
+    const doHasNext = function () {
+        return _tokens.length > _idx;
     };
 
     const doGetCount = function () {
@@ -92,21 +94,17 @@ const InputTokenizer = function () {
     };
 
     const isOperator = function (inChar) {
-        return /[\+\-/\^\(\)=]/.test(inChar);
+        return /[\+\-/\^\(\)\*]/.test(inChar);
     };
 
     const doToString = function () {
         return _.join(_tokens, ",");
     };
 
-    const doHasNext = function () {
-
-    };
-
     const doPeek = function () {
         var result = null;
 
-        if (_idx < _tokens.length){
+        if (_idx <= _tokens.length){
             result = _tokens[_idx];
         } else {
             throw new Error(Constants.error.NO_TOKENS_LEFT);

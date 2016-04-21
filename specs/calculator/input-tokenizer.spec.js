@@ -21,7 +21,16 @@ describe("Input Tokenizer", function () {
 
     it("should tokenize string input", function () {
         tokenizer.tokenize(INPUT_TO_TOKENIZE);
+
         tokenizer.getCount().should.equal(5);
+
+        var idx = 0;
+        while(tokenizer.hasNext()){
+            tokenizer.next();
+            idx += 1;
+        }
+
+        idx.should.equal(5);
     });
     
     it("should throw \"invalid input character\" error if an invalid ", function(){

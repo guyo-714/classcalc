@@ -4,49 +4,120 @@ var CalculatorAction = require("./calculator-action"),
     CalculatorTokenizer = require("./input-tokenizer"),
     _ = require("lodash");
 
-var _calcAction = null;
-
 const Calculator = function(){
 
     var _calcAction = new CalculatorAction();
 
+    /**
+     * F => (E) | LiteralValue | Error
+     * @param tokenizer
+     * @param stopChar
+     */
     const doParseFactor = function (tokenizer, stopChar) {
-        
+        var token,
+            tokenValue;
+
+        if (tokenizer.hasNext()){
+            token = tokenizer.next();
+            tokenValue = token.value;
+
+            if (_.isEqual("(", tokenValue)) {
+                doParseExpression(tokenizer, ")");
+            } else if (_.isEqual(")")) {
+                //no-op
+            } else if (_.isEqual("^", tokenValue)) {
+                doParseFactor(tokenizer, stopChar);
+                _calcAction.power();
+            } else if (/[0-9]/.test(tokenValue)) {
+                _calcAction.push(tokenValue);
+            } else {
+                throw new Error("Invalid Token..." + tokenValue);
+            }
+        }
+
+        return _calcAction.count > 0 ? _calcAction.peek() : null;
     };
 
+    /**
+     * T => T * F | T / F | T ^F | F
+     * @param tokenizer
+     * @param stopChar
+     */
     const doParseTerm = function (tokenizer, stopChar) {
-        doParseFactor(tokenizer, stopChar);
-    };
-
-    const doParseExpression = function(tokenizer, stopChar){
+        var result,
+            token,
+            tokenValue;
 
         if (tokenizer.hasNext()) {
-            const token = tokenizer.peek();
-            const tokenValue = token.value;
+            token = tokenizer.peek();
+            tokenValue = token.value;
+
+            if (_.isEqual("*", tokenValue)){
+                tokenizer.next();
+                doParseFactor(tokenizer, stopChar);
+                _calcAction.multiply();
+            } else if (_.isEqual("/", tokenValue)){
+                tokenizer.next();
+                doParseFactor(tokenizer, stopChar);
+                _calcAction.divide();
+            } else {
+                doParseFactor(tokenizer, stopChar);
+            }
+        }
+
+        result = _calcAction.count > 0 ? _calcAction.peek() : null;
+
+        return result;
+    };
+
+    /**
+     * E => E + T | E - T | T
+     * @param tokenizer
+     * @param stopChar
+     */
+    const doParseExpression = function(tokenizer, stopChar){
+        var token,
+            tokenValue;
+
+        if (tokenizer.hasNext()) {
+            token = tokenizer.peek();
+            tokenValue = token.value;
 
             if (_.isEqual("+", tokenValue)){
+                tokenizer.next();
                 doParseTerm(tokenizer, stopChar);
                 _calcAction.add();
             } else if (_.isEqual("-", tokenValue)) {
-
+                tokenizer.next();
+                doParseTerm(tokenizer, stopChar);
+                _calcAction.subtract();
             } else {
                 doParseTerm(tokenizer, stopChar);
             }
         }
 
+        var result = _calcAction.count > 0 ? _calcAction.peek() : null;
+
+        if (tokenizer.hasNext()  && !_.isEqual(tokenValue, stopChar)){
+            doParseExpression(tokenizer, stopChar);
+        }
+
+        return result;
     };
 
-    const calculate = function(inputStr, stopChr) {
+    const doCalculate = function(inputStr, stopChr) {
         var tokenizer = new CalculatorTokenizer();
+        tokenizer.tokenize(inputStr);
 
         var result = doParseExpression(tokenizer, null);
+        result = _calcAction.getAnswer();
 
         return result;
     };
 
 
     return {
-      calculate: calculate,
+      calculate: doCalculate,
         parseExpression: doParseExpression,
         parseTerm: doParseTerm,
         parseFactor: doParseFactor
