@@ -8,7 +8,6 @@ describe("Input read buffer", function(){
 
     beforeEach(function () {
         inputReader = new InputReadBuffer(INPUT_ONE);
-        console.log("before...");
     });
 
     afterEach(function () {

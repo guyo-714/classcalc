@@ -1,14 +1,13 @@
 "use strict";
-var InputBuffer = require("./input-read-buffer");
+var InputBuffer = require("./input-read-buffer"),
+    Constants = require("./calculator-const"),
+    _ = require("lodash");
 
 
-const InputTokenizer = function (inputStr) {
+const InputTokenizer = function () {
     var _inputBuffer = null;
     var _tokens = [];
-
-    if (inputStr){
-        _inputBuffer = new InputBuffer(inputStr);
-    }
+    var _idx = 0;
 
     const doTokenize = function (inputStr) {
         if (inputStr){
@@ -24,6 +23,8 @@ const InputTokenizer = function (inputStr) {
                 doGetNumberToken();
             } else if (isOperator(currentChar)) {
                 doGetOperatorToken();
+            } else {
+                throw new Error(Constants.error.INVALID_INPUT_CHAR);
             }
         }
     };
@@ -38,12 +39,14 @@ const InputTokenizer = function (inputStr) {
 
             if (isWhitespace(currentChar)){
                 break;
+            } else if (isNaN(currentChar)) {
+                break;
             } else {
                 value += currentChar;
             }
         }
 
-        result = {"type":"numeric","value": value};
+        result = {"type":"number","value": value};
         _tokens.push(result);
 
         return result;
@@ -65,12 +68,13 @@ const InputTokenizer = function (inputStr) {
         }
 
         result = {"type": "operator", "value": value};
-        if (result.length > 0){
-            _tokens.push(result);
-
-        }
+        _tokens.push(result);
 
         return result;
+    };
+
+    const doHasNext = function () {
+        return _tokens.length > _idx;
     };
 
     const doGetCount = function () {
@@ -90,12 +94,44 @@ const InputTokenizer = function (inputStr) {
     };
 
     const isOperator = function (inChar) {
-        return /[\+\-/\^\(\)=]/.test(inChar);
+        return /[\+\-/\^\(\)\*]/.test(inChar);
     };
+
+    const doToString = function () {
+        return _.join(_tokens, ",");
+    };
+
+    const doPeek = function () {
+        var result = null;
+
+        if (_idx <= _tokens.length){
+            result = _tokens[_idx];
+        } else {
+            throw new Error(Constants.error.NO_TOKENS_LEFT);
+        }
+
+        return result;
+    };
+
+    const doGetNext = function () {
+        var result = null;
+
+        result = doPeek();
+        _idx += 1;
+
+        return result;
+    };
+
+
 
     return {
         tokenize: doTokenize,
-        getCount: doGetCount
+        getCount: doGetCount,
+        tokens: _tokens,
+        toString: doToString,
+        hasNext: doHasNext,
+        next: doGetNext,
+        peek: doPeek
     };
 };
 

@@ -1,7 +1,8 @@
 "use strict";
 
 var Constants = require("./calculator-const"),
-    StrFormatter = require("string-format");
+    StrFormatter = require("string-format"),
+    _ = require("lodash");
 
 StrFormatter.extend(String.prototype);
 
@@ -16,7 +17,21 @@ const CalculatorAction = function(){
         if(_stack.length === 0){
             throw new Error("no value to use...")
         }
-      return _stack.pop();
+      return Number(_stack.pop());
+    };
+
+    const doPeek = function(offset) {
+        var result;
+        var idx;
+
+        if (offset) {
+            idx = offset < _stack.length ? offset : _stack.length -1;
+            result = _stack[idx];
+        } else if (_stack.length > 0) {
+            result = _stack[0];
+        }
+
+        return result;
     };
 
     const getBinaryOperationValues = function () {
@@ -27,21 +42,21 @@ const CalculatorAction = function(){
             throw new Error("Not enough values for binary operation");
         }
 
-        right = _stack.pop();
-        left = _stack.pop();
+        right = pop();
+        left = pop();
 
         return {left:left, right: right};
     };
 
     const doAdd = function(){
-        var values,
+        var left,
+            right,
             result;
 
-        values = getBinaryOperationValues();
-
-        result = values.left + values.right;
-
-        this.push(result);
+        right = pop();
+        left = pop();
+        result = _.add(left, right);
+        push(result);
 
         return result;
     };
@@ -52,7 +67,6 @@ const CalculatorAction = function(){
 
         values = getBinaryOperationValues();
         result = values.left - values.right;
-
         this.push(result);
 
         return result;
@@ -102,7 +116,7 @@ const CalculatorAction = function(){
     const doToString = function () {
         var result;
 
-        result = "Item count: " +  _stack.length + " = " + _stack;
+        result = "Item count: " +  _stack.length + " Values: [" + _.join(_stack, ",") + "]";
 
         return result;
     };
@@ -115,8 +129,19 @@ const CalculatorAction = function(){
         return _stack.length;
     };
 
+    const doGetAnswer = function () {
+        var result = null;
+
+        if (_stack.length > 0) {
+            result = pop();
+        }
+
+        return result;
+    };
+
     return {
         add: doAdd,
+        getAnswer: doGetAnswer,
         subtract: doSubtract,
         multiply: doMultiply,
         divide: doDivide,
@@ -124,6 +149,7 @@ const CalculatorAction = function(){
         clear: doClear,
         push: push,
         pop: pop,
+        peek: doPeek,
         count: doGetCount(),
         toString: doToString
     }

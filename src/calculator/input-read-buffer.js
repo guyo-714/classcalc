@@ -2,35 +2,34 @@
 
 var Constants = require("./calculator-const");
 
-var _input = null,
-    _idx = 0;
+const InputReadBuffer = function(inputStr){
+    var self = this;
 
-const InputReadBuffer = function(input){
-
-    _input = input;
+    self.input = inputStr;
+    self.idx = 0;
 
     const doGetLength = function () {
-        return _input.length;
+        return self.input.length;
     };
 
     const doHasNext = function () {
-        return _idx < _input.length;
+        return self.idx < self.input.length;
     };
 
     const doGetNext = function () {
         var result = doPeekNext();
 
-        _idx += 1;
+        self.idx += 1;
 
         return result;
     };
 
     const doPeekNext = function () {
-        if (_idx >= _input.length) {
+        if (self.idx >= self.input.length) {
             throw new Error(Constants.BUFFER_EXHAUSTED);
         }
 
-        return _input[_idx];
+        return self.input[self.idx];
     };
 
     return {
