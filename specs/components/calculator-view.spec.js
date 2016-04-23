@@ -15,13 +15,13 @@ describe.only("Calculator View", function () {
 
         var renderedComponent = TestUtils.renderIntoDocument(<CalculatorView/>, {});
 
-        this.displayElement = TestUtils.findRenderedComponentWithType(renderedComponent, CalculatorDisplay);
+        this.displayComponent = TestUtils.findRenderedComponentWithType(renderedComponent, CalculatorDisplay);
         var buttonComponent = TestUtils.findRenderedComponentWithType(renderedComponent, CalculatorButton);
         this.buttonElement = ReactDOM.findDOMNode(buttonComponent);
     });
 
     it("should have display element", function() {
-        this.displayElement.should.not.be.null;
+        this.displayComponent.should.not.be.null;
     });
 
     it("should have buttonElement", function() {
@@ -30,5 +30,11 @@ describe.only("Calculator View", function () {
 
     it("buttonElement should have value 0", function() {
         this.buttonElement.value.should.equal("0");
+    });
+
+    it("should display 0 when the 0 button is clicked", function () {
+        TestUtils.Simulate.click(this.buttonElement);
+        var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+        displayLabel.textContent.should.equal(this.buttonElement.value);
     });
 });

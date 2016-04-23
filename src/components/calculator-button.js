@@ -9,7 +9,7 @@ var CalculatorButton = React.createClass({
     },
     render: function () {
         return (
-          <input type="submit" className="btn btn-flat" value={this.props.value}/>
+          <input type="submit" className="btn btn-flat" value={this.props.value} onClick={this.props.onClick}/>
         );
     }
 });
