@@ -20,8 +20,7 @@ const CalculatorView = React.createClass({
                     < CalculatorButton value="0" onClick={this.handleCalcButtonClick} / >
                 < / div >
             < / div >
-        )
-        ;
+        );
     }
 });
 
