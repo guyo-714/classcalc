@@ -1,8 +1,9 @@
 "use strict";
 
 var React = require('react'),
-    ReactDom = require('react-dom');
+    ReactDom = require('react-dom'),
+    CalculatorView = require("./components/calculator-view");
 
 
-ReactDom.render( <div>hah</div>, document.getElementById('content')
+ReactDom.render( <CalculatorView/>, document.getElementById('content')
 )
