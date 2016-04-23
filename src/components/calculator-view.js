@@ -5,15 +5,14 @@ var React = require('react'),
 
 
 const CalculatorView = React.createClass({
-
     render: function() {
         return (
                 <div>
             <div>
-                <CalculatorDisplay/>
+                <CalculatorDisplay value=""/>
         </div>
                 <div>
-                    <CalculatorButton value="0"/>
+                    <CalculatorButton value="0" />
                 </div>
                 </div>
         );

@@ -3,7 +3,9 @@ var React = require("react");
 var CalculatorDisplay = React.createClass({
     render : function() {
         return (
-            <div/>
+            <div className="well">
+                <label>{this.props.value}</label>
+            </div>
         );
     }
 });
