@@ -15,11 +15,11 @@ const CalculatorView = React.createClass({
             < div >
                 < div >
                     < CalculatorDisplay value={this.state.displayValue} />
-                < / div >
+                </ div >
                 < div >
-                    < CalculatorButton value="0" onClick={this.handleCalcButtonClick} / >
-                < / div >
-            < / div >
+                    < CalculatorButton value="0" onClick={this.handleCalcButtonClick} />
+                </ div >
+            </ div >
         );
     }
 });

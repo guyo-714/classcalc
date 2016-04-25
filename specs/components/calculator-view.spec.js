@@ -9,7 +9,7 @@ var Chai = require('chai'),
 
 Chai.should();
 
-describe.only("Calculator View", function () {
+describe("Calculator View", function () {
     beforeEach("render and retrieve", function () {
         setupDom();
 
