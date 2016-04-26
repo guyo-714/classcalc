@@ -9,7 +9,7 @@ var Chai = require('chai'),
 
 Chai.should();
 
-describe.only("Calculator View", function () {
+describe("Calculator View", function () {
     beforeEach("render and retrieve", function () {
         setupDom();
 
@@ -35,7 +35,6 @@ describe.only("Calculator View", function () {
     it("should display 0 when the 0 button is clicked", function () {
         TestUtils.Simulate.click(this.buttonElement);
         var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
-        console.log(displayLabel);
         displayLabel.textContent.should.equal(this.buttonElement.value);
     });
 });
