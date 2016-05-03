@@ -9,7 +9,7 @@ var Chai = require('chai'),
 
 Chai.should();
 
-describe.only("Calculator View", function () {
+describe("Calculator View", function () {
     beforeEach("render and retrieve", function () {
         setupDom();
 
@@ -38,15 +38,47 @@ describe.only("Calculator View", function () {
     });
 
     context("#onClick of button", function() {
-        beforeEach(function () {
-            this.buttonElement = ReactDOM.findDOMNode(this.buttonComponents[0]);
+
+        context("One button clicked", function() {
+            beforeEach(function () {
+                this.buttonElement = ReactDOM.findDOMNode(this.buttonComponents[0]);
+            });
+
+            it("should display correct button value when button is clicked", function () {
+                TestUtils.Simulate.click(this.buttonElement);
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal(this.buttonElement.value);
+            });
         });
 
-        it("should display correct button value when button is clicked", function () {
-            TestUtils.Simulate.click(this.buttonElement);
-            var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
-            displayLabel.textContent.should.equal(this.buttonElement.value);
+        context("First non zero button and any other button clicked", function() {
+            beforeEach(function () {
+                this.firstButtonElement = ReactDOM.findDOMNode(this.buttonComponents[0]);
+                this.secondButtonElement = ReactDOM.findDOMNode(this.buttonComponents[1]);
+            });
+
+            it("should display firstButtonElement value and secondButtonElement value", function() {
+                TestUtils.Simulate.click(this.firstButtonElement);
+                TestUtils.Simulate.click(this.secondButtonElement);
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal(this.firstButtonElement.value + this.secondButtonElement.value);
+            });
         });
+
+        context("First zero button and any other button clicked", function() {
+            beforeEach(function () {
+                this.firstButtonElement = ReactDOM.findDOMNode(this.buttonComponents[9]);
+                this.secondButtonElement = ReactDOM.findDOMNode(this.buttonComponents[1]);
+            });
+
+            it("should display firstButtonElement value and secondButtonElement value", function() {
+                TestUtils.Simulate.click(this.firstButtonElement);
+                TestUtils.Simulate.click(this.secondButtonElement);
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal(this.secondButtonElement.value);
+            });
+        });
+
     });
 
 });

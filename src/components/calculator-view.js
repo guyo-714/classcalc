@@ -8,8 +8,13 @@ const CalculatorView = React.createClass({
         return {displayValue: ""};
     },
     handleCalcButtonClick: function (e) {
-        var value = e.target.value;
-        this.setState({displayValue: value});
+        var newValue = e.target.value;
+        var existingValue = this.state.displayValue;
+        if(existingValue != "0") {
+            this.setState({displayValue: existingValue + newValue});
+        } else {
+            this.setState({displayValue: newValue});
+        }
     }, render: function () {
         return (
             < div >
