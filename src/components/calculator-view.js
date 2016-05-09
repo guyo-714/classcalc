@@ -8,17 +8,39 @@ const CalculatorView = React.createClass({
         return {displayValue: ""};
     },
     handleCalcButtonClick: function (e) {
-        var value = e.target.value;
-        this.setState({displayValue: value});
+        var newValue = e.target.value;
+        var existingValue = this.state.displayValue;
+        if(existingValue != "0") {
+            this.setState({displayValue: existingValue + newValue});
+        } else {
+            this.setState({displayValue: newValue});
+        }
     }, render: function () {
         return (
-            < div >
-                < div >
-                    < CalculatorDisplay value={this.state.displayValue} />
-                </ div >
-                < div >
-                    < CalculatorButton value="0" onClick={this.handleCalcButtonClick} />
-                </ div >
+            <div>
+                <table>
+                    <tr>
+                        <CalculatorDisplay value={this.state.displayValue} />
+                    </tr>
+                    <tr>
+                        <td><CalculatorButton value="1" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="2" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="3" onClick={this.handleCalcButtonClick} /></td>
+                    </tr>
+                      <tr>
+                        <td><CalculatorButton value="4" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="5" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="6" onClick={this.handleCalcButtonClick} /></td>
+                    </tr>
+                    <tr>
+                        <td><CalculatorButton value="7" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="8" onClick={this.handleCalcButtonClick} /></td>
+                        <td><CalculatorButton value="9" onClick={this.handleCalcButtonClick} /></td>
+                    </tr>
+                    <tr>
+                         <td><CalculatorButton value="0" onClick={this.handleCalcButtonClick} /></td>
+                    </tr>
+                </table>
             </ div >
         );
     }

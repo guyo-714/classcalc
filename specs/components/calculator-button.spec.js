@@ -9,8 +9,6 @@ var Chai = require('chai'),
 
 Chai.should();
 
-
-
 describe("Calculator Button", function () {
     var targetValue;
 
@@ -26,12 +24,12 @@ describe("Calculator Button", function () {
     });
 
 
-    it("should a value of 0", function(){
+    it("should have a value of 0", function(){
         var input = TestUtils.findRenderedDOMComponentWithTag(this.buttonElement, "input");
         input.value.should.equal("0");
     });
 
-    it("button element should call on click handler with it's value", function() {
+    it("button element should call click handler with it's value", function() {
         var button = ReactDOM.findDOMNode(this.buttonElement);
         TestUtils.Simulate.click(button);
         targetValue.should.equal("0");
