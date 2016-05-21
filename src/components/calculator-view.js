@@ -17,30 +17,32 @@ const CalculatorView = React.createClass({
         }
     }, render: function () {
         return (
-            <div>
-                <table>
-                    <tr>
+            <div className="panel">
+                <div className="panel-default">
+                    <div className="panel-heading">
                         <CalculatorDisplay value={this.state.displayValue} />
-                    </tr>
-                    <tr>
-                        <td><CalculatorButton value="1" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="2" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="3" onClick={this.handleCalcButtonClick} /></td>
-                    </tr>
-                      <tr>
-                        <td><CalculatorButton value="4" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="5" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="6" onClick={this.handleCalcButtonClick} /></td>
-                    </tr>
-                    <tr>
-                        <td><CalculatorButton value="7" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="8" onClick={this.handleCalcButtonClick} /></td>
-                        <td><CalculatorButton value="9" onClick={this.handleCalcButtonClick} /></td>
-                    </tr>
-                    <tr>
-                         <td><CalculatorButton value="0" onClick={this.handleCalcButtonClick} /></td>
-                    </tr>
-                </table>
+                    </div>
+                    <div className="panel-body">
+                        <div className="btn-group" width="20">
+                            <CalculatorButton value="1" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="2" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="3" onClick={this.handleCalcButtonClick} />
+                        </div>
+                        <div className="btn-group">
+                            <CalculatorButton value="4" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="5" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="6" onClick={this.handleCalcButtonClick} />
+                        </div>
+                        <div className="btn-group">
+                            <CalculatorButton value="7" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="8" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="9" onClick={this.handleCalcButtonClick} />
+                        </div>
+                        <div className="btn-group">
+                            <CalculatorButton value="0" onClick={this.handleCalcButtonClick} />
+                        </div>
+                    </div>
+                </div>
             </ div >
         );
     }

@@ -55,4 +55,20 @@ describe("Input Tokenizer", function () {
         tokenizer.tokens[4].type.should.equal("number");
         tokenizer.tokens[4].value.should.equal("22");
     });
+
+    it("should be able to tokenize expressions without spaces", function () {
+        var input = INPUT_TO_TOKENIZE.replace(" ", "");
+
+        tokenizer.tokenize(input);
+        tokenizer.tokens[0].type.should.equal("number");
+        tokenizer.tokens[0].value.should.equal("1");
+        tokenizer.tokens[1].type.should.equal("operator");
+        tokenizer.tokens[1].value.should.equal("+");
+        tokenizer.tokens[2].type.should.equal("number");
+        tokenizer.tokens[2].value.should.equal("2");
+        tokenizer.tokens[3].type.should.equal("operator");
+        tokenizer.tokens[3].value.should.equal("+");
+        tokenizer.tokens[4].type.should.equal("number");
+        tokenizer.tokens[4].value.should.equal("22");
+    });
 });
