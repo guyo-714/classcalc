@@ -23,7 +23,7 @@ const Calculator = function(){
 
             if (_.isEqual("(", tokenValue)) {
                 doParseExpression(tokenizer, ")");
-            } else if (_.isEqual(")")) {
+            } else if (_.isEqual(")", tokenValue)) {
                 //no-op
             } else if (_.isEqual("^", tokenValue)) {
                 doParseFactor(tokenizer, stopChar);
@@ -31,7 +31,7 @@ const Calculator = function(){
             } else if (/[0-9]/.test(tokenValue)) {
                 _calcAction.push(tokenValue);
             } else {
-                throw new Error("Invalid Token..." + tokenValue);
+                throw new Error("Invalid character... \"" + tokenValue + "\"");
             }
         }
 

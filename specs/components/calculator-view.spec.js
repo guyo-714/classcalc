@@ -23,12 +23,12 @@ describe("Calculator View", function () {
     });
 
     context("Buttons", function() {
-        it("should have total 10 buttons for number 0-9", function() {
-            this.buttonComponents.length.should.equal(10);
+        it("should have total 10 buttons for number 0-9 and +, =", function() {
+            this.buttonComponents.length.should.equal(12);
         });
 
         it("buttons values should be correct", function() {
-            var buttonValues = ["1","2","3","4","5","6","7","8","9","0"];
+            var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "="];
             for(var i=0; i<this.buttonComponents.length; i++) {
                 var buttonElement = ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
