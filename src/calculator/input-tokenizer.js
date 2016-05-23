@@ -35,13 +35,14 @@ const InputTokenizer = function () {
             currentChar;
 
         while(_inputBuffer.hasNext()){
-            currentChar = _inputBuffer.getNext();
+            currentChar = _inputBuffer.peekNext();
 
             if (isWhitespace(currentChar)){
                 break;
             } else if (isNaN(currentChar)) {
                 break;
             } else {
+                _inputBuffer.getNext();
                 value += currentChar;
             }
         }
@@ -61,7 +62,8 @@ const InputTokenizer = function () {
             currentChar = _inputBuffer.getNext();
 
             value += currentChar;
-
+            break;
+            
             if (!isOperator(_inputBuffer.peekNext())){
                 break;
             }

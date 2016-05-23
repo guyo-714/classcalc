@@ -23,6 +23,16 @@ describe("Calculator", function(){
         result.should.equal(left + right);
     });
 
+    it("should handle E+T no spaces", function () {
+        var left = 2,
+            right = 1;
+
+        var expression = sprintf("%s+%s", left, right);
+        var result = calculator.calculate(expression);
+
+        result.should.equal(left + right);
+    });
+
     it("should handle multiple E + T", function(){
         var left = 2,
             right = 1;
