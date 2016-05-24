@@ -11,6 +11,8 @@ var Chai = require('chai'),
 Chai.should();
 
 describe("Calculator View", function () {
+    var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "*", "="];
+
     beforeEach("render and retrieve", function () {
         setupDom();
 
@@ -25,11 +27,10 @@ describe("Calculator View", function () {
 
     context("Buttons", function() {
         it("should have total 10 buttons for number 0-9 and +, =", function() {
-            this.buttonComponents.length.should.equal(13);
+            this.buttonComponents.length.should.equal(14);
         });
 
         it("buttons values should be correct", function() {
-            var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "="];
             for(var i=0; i<this.buttonComponents.length; i++) {
                 var buttonElement = ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
@@ -118,6 +119,29 @@ describe("Calculator View", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "-");
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("0");
+            });
+        });
+        context("Multiplication", function () {
+            it("should multiply two numbers", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "*");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("63");
+            });
+            it("should multiply multiple numbers", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "*");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "*");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "0");
+
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
 
                 var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
