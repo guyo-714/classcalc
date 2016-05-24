@@ -56,6 +56,7 @@ const CalculatorView = React.createClass({
                         </div>
                         <div className="btn-group-vertical">
                             <CalculatorButton value="+" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="-" onClick={this.handleCalcButtonClick} />
                             <CalculatorButton value="=" onClick={this.handleProcessEpression} />
                         </div>
                 </div>

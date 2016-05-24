@@ -5,7 +5,8 @@ var Chai = require('chai'),
     ReactDOM = require("react-dom"),
     CalculatorView = require("../../src/components/calculator-view"),
     CalculatorDisplay = require("../../src/components/calculator-display"),
-    CalculatorButton = require("../../src/components/calculator-button");
+    CalculatorButton = require("../../src/components/calculator-button"),
+    CalcTestHelper = require("../test-helper");
 
 Chai.should();
 
@@ -24,11 +25,11 @@ describe("Calculator View", function () {
 
     context("Buttons", function() {
         it("should have total 10 buttons for number 0-9 and +, =", function() {
-            this.buttonComponents.length.should.equal(12);
+            this.buttonComponents.length.should.equal(13);
         });
 
         it("buttons values should be correct", function() {
-            var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "="];
+            var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "="];
             for(var i=0; i<this.buttonComponents.length; i++) {
                 var buttonElement = ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
@@ -79,6 +80,50 @@ describe("Calculator View", function () {
             });
         });
 
+        context("Addition", function(){
+            it("should add two numbers e.g. 9+7=16", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "+");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("16");
+            });
+            it("should add more than two numbers e.g. 9+7+2=18", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "+");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "+");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("18");
+            });
+        });
+        context("Subtraction", function(){
+            it("should subtract two numbers e.g. 9-7=2", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "-");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("2");
+            });
+            it("should subtract more than two numbers e.g. 9-7-2=0", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "-");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "7");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "-");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("0");
+            });
+        });
     });
 
 });
