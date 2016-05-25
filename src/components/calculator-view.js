@@ -58,6 +58,7 @@ const CalculatorView = React.createClass({
                             <CalculatorButton value="+" onClick={this.handleCalcButtonClick} />
                             <CalculatorButton value="-" onClick={this.handleCalcButtonClick} />
                             <CalculatorButton value="*" onClick={this.handleCalcButtonClick} />
+                            <CalculatorButton value="/" onClick={this.handleCalcButtonClick} />
                             <CalculatorButton value="=" onClick={this.handleProcessEpression} />
                         </div>
                 </div>
