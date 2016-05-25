@@ -11,7 +11,7 @@ var Chai = require('chai'),
 Chai.should();
 
 describe("Calculator View", function () {
-    var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "*", "="];
+    var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "*", "/", "="];
 
     beforeEach("render and retrieve", function () {
         setupDom();
@@ -26,8 +26,8 @@ describe("Calculator View", function () {
     });
 
     context("Buttons", function() {
-        it("should have total 10 buttons for number 0-9 and +, =", function() {
-            this.buttonComponents.length.should.equal(14);
+        it("should have correct number of buttons for number 0-9 and +, =, *, -, /", function() {
+            this.buttonComponents.length.should.equal(15);
         });
 
         it("buttons values should be correct", function() {
@@ -91,6 +91,7 @@ describe("Calculator View", function () {
                 var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
                 displayLabel.textContent.should.equal("16");
             });
+
             it("should add more than two numbers e.g. 9+7+2=18", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "+");
@@ -103,6 +104,7 @@ describe("Calculator View", function () {
                 displayLabel.textContent.should.equal("18");
             });
         });
+
         context("Subtraction", function(){
             it("should subtract two numbers e.g. 9-7=2", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
@@ -113,6 +115,7 @@ describe("Calculator View", function () {
                 var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
                 displayLabel.textContent.should.equal("2");
             });
+
             it("should subtract more than two numbers e.g. 9-7-2=0", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "-");
@@ -125,6 +128,7 @@ describe("Calculator View", function () {
                 displayLabel.textContent.should.equal("0");
             });
         });
+
         context("Multiplication", function () {
             it("should multiply two numbers", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
@@ -135,6 +139,7 @@ describe("Calculator View", function () {
                 var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
                 displayLabel.textContent.should.equal("63");
             });
+
             it("should multiply multiple numbers", function () {
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
                 CalcTestHelper.clickButtonWithValue(this.buttonComponents, "*");
@@ -148,6 +153,42 @@ describe("Calculator View", function () {
                 displayLabel.textContent.should.equal("0");
             });
         });
+
+        context("Division", function () {
+            it("should divide two numbers correctly", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "8");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "/");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("4");
+            });
+
+            it("should divide multiple numbers correctly", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "1");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "/");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "2");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "/");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "3");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("2");
+            });
+
+            it("dividing any number with zero should result in error", function () {
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "5");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "/");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "0");
+                CalcTestHelper.clickButtonWithValue(this.buttonComponents, "=");
+
+                var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
+                displayLabel.textContent.should.equal("Error: Dividing by zero is not allowed.");
+            });
+        });
+
     });
 
 });
