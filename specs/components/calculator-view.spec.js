@@ -32,7 +32,7 @@ describe("Calculator View", function () {
 
         it("buttons values should be correct", function() {
             for(var i=0; i < buttonValues.length; i++) {
-                var buttonElement = ReactDOM.findDOMNode(this.buttonComponents[i]);
+                var buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, buttonValues[i]); ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
                 buttonElement.value.should.equal(buttonValues[i]);
             }
