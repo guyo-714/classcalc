@@ -27,11 +27,11 @@ describe("Calculator View", function () {
 
     context("Buttons", function() {
         it("should have correct number of buttons for number 0-9 and +, =, *, -, /", function() {
-            this.buttonComponents.length.should.equal(15);
+            this.buttonComponents.length.should.equal(buttonValues.length);
         });
 
         it("buttons values should be correct", function() {
-            for(var i=0; i<this.buttonComponents.length; i++) {
+            for(var i=0; i < buttonValues.length; i++) {
                 var buttonElement = ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
                 buttonElement.value.should.equal(buttonValues[i]);
@@ -40,7 +40,6 @@ describe("Calculator View", function () {
     });
 
     context("#onClick of button", function() {
-
         context("One button clicked", function() {
             beforeEach(function () {
                 this.buttonElement = ReactDOM.findDOMNode(this.buttonComponents[0]);

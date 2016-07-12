@@ -1,13 +1,14 @@
 {
-  "name": "bindonline",
+  "name": "classcalc",
   "version": "1.0.0",
   "description": "Bind Online React prototype",
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .js,.jsx",
     "start:dev": "node ./src/server.js",
-    "start": "node server.js",
-    "test": "mocha -w --recursive --compilers js:babel-register \"specs/**/*.spec.js\""
+    "start": "node /src/server.js",
+    "test": "mocha --recursive --compilers js:babel-register \"specs/**/*.spec.js\"",
+    "test:watch": "mocha -w --recursive --compilers js:babel-register \"specs/**/*.spec.js\""
   },
   "author": "Guy Oshiro <oshiro.guy@aaa-calif.com>",
   "repository": {
