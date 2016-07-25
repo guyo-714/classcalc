@@ -11,6 +11,7 @@ const CalculatorView = React.createClass({
     handleCalcButtonClick: function (e) {
         var newValue = e.target.value;
         var existingValue = this.state.displayValue;
+
         if(existingValue != "0") {
             this.setState({displayValue: existingValue + newValue});
         } else {

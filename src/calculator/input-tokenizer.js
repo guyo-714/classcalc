@@ -127,6 +127,7 @@ const InputTokenizer = function () {
 
 
     return {
+        isOperator: isOperator,
         tokenize: doTokenize,
         getCount: doGetCount,
         tokens: _tokens,

@@ -35,7 +35,6 @@ Html.propTypes = {
   style: PropTypes.string.isRequired,
   script: PropTypes.string,
   children: PropTypes.string,
-  state: PropTypes.object.isRequired,
 };
 
 export default Html;

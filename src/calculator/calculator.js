@@ -9,7 +9,7 @@ const Calculator = function(){
     var _calcAction = new CalculatorAction();
 
     /**
-     * F => (E) | LiteralValue | Error
+     * F => (E) | E^F | LiteralValue | Error
      * @param tokenizer
      * @param stopChar
      */
@@ -39,7 +39,7 @@ const Calculator = function(){
     };
 
     /**
-     * T => T * F | T / F | T ^F | F
+     * T => T * F | T / F | F
      * @param tokenizer
      * @param stopChar
      */
@@ -65,8 +65,12 @@ const Calculator = function(){
             }
         }
 
-        result = _calcAction.count > 0 ? _calcAction.peek() : null;
+        if (tokenizer.hasNext() &&
+            /[\*,\/]/.test(tokenizer.peek().value)) {
+            doParseTerm(tokenizer, stopChar);
+        }
 
+        result = _calcAction.count > 0 ? _calcAction.peek() : null;
         return result;
     };
 
