@@ -11,8 +11,6 @@ var Chai = require('chai'),
 Chai.should();
 
 describe("Calculator View", function () {
-    var buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "*", "/", "="];
-
     beforeEach("render and retrieve", function () {
         setupDom();
 
@@ -26,17 +24,82 @@ describe("Calculator View", function () {
     });
 
     context("Buttons", function() {
-        it("should have correct number of buttons for number 0-9 and +, =, *, -, /", function() {
-            this.buttonComponents.length.should.equal(buttonValues.length);
+        it("should have a button with 0 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "0");
         });
 
-        it("buttons values should be correct", function() {
+        it("should have a button with 1 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "1");
+        });
+
+        it("should have a button with 2 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "2");
+        });
+
+        it("should have a button with 3 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "3");
+        });
+
+        it("should have a button with 4 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "4");
+        });
+
+        it("should have a button with 5 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "5");
+        });
+
+        it("should have a button with 6 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "6");
+        });
+
+        it("should have a button with 7 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "7");
+        });
+
+        it("should have a button with 8 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "8");
+        });
+
+        it("should have a button with 9 displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "9");
+        });
+
+        it("should have a button with + displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "+");
+        });
+
+        it("should have a button with - displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "-");
+        });
+
+        it("should have a button with * displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "*");
+        });
+
+        it("should have a button with / displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "/");
+        });
+
+        it("should have a button with = displayed", function () {
+            let buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, "=");
+        });
+
+        it("should have correct number of buttons for number 0-9 and +, =, *, -, /", function() {
+            this.buttonComponents.length.should.equal(15);
+        });
+
+        /*
+        let buttonValues = ["1","2","3","4","5","6","7","8","9","0", "+", "-", "*", "/", "="];
+
+         it("buttons values should be correct", function() {
+
             for(var i=0; i < buttonValues.length; i++) {
                 var buttonElement = CalcTestHelper.getButtonDomNodeByValue(this.buttonComponents, buttonValues[i]); ReactDOM.findDOMNode(this.buttonComponents[i]);
                 buttonElement.should.not.be.null;
                 buttonElement.value.should.equal(buttonValues[i]);
             }
         });
+        */
     });
 
     context("#onClick of button", function() {

@@ -19,7 +19,6 @@ const CalculatorView = React.createClass({
     },
     handleProcessEpression(){
         var calculator = new Calculator();
-
         try {
             var answer = calculator.calculate(this.state.displayValue);
             this.setState({displayValue: answer});
@@ -33,34 +32,33 @@ const CalculatorView = React.createClass({
             <div className="panel">
                 <div className="panel-heading">
                     <CalculatorDisplay value={this.state.displayValue} />
-
                 </div>
                 <div className="panel-body">
-                        <div className="btn-group btn-group-justified"> 
-                            <CalculatorButton value="1" onClick={this.handleCalcButtonClick} /> 
-                            <CalculatorButton value="2" onClick={this.handleCalcButtonClick} /> 
-                            <CalculatorButton value="3" onClick={this.handleCalcButtonClick} /> 
-                        </div>
-                        <div className="btn-group btn-group-justified">
-                            <CalculatorButton value="4" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="5" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="6" onClick={this.handleCalcButtonClick} />
-                        </div>
-                        <div className="btn-group btn-group-justified">
-                            <CalculatorButton value="7" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="8" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="9" onClick={this.handleCalcButtonClick} />
-                        </div>
-                        <div className="btn-group btn-group-justified">
-                            <CalculatorButton value="0" onClick={this.handleCalcButtonClick} />
-                        </div>
-                        <div className="btn-group-vertical">
-                            <CalculatorButton value="+" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="-" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="*" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="/" onClick={this.handleCalcButtonClick} />
-                            <CalculatorButton value="=" onClick={this.handleProcessEpression} />
-                        </div>
+                    <div className="btn-group btn-group-justified"> 
+                        <CalculatorButton value="1" onClick={this.handleCalcButtonClick} /> 
+                        <CalculatorButton value="2" onClick={this.handleCalcButtonClick} /> 
+                        <CalculatorButton value="3" onClick={this.handleCalcButtonClick} /> 
+                    </div>
+                    <div className="btn-group btn-group-justified">
+                        <CalculatorButton value="4" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="5" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="6" onClick={this.handleCalcButtonClick} />
+                    </div>
+                    <div className="btn-group btn-group-justified">
+                        <CalculatorButton value="7" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="8" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="9" onClick={this.handleCalcButtonClick} />
+                    </div>
+                    <div className="btn-group btn-group-justified">
+                        <CalculatorButton value="0" onClick={this.handleCalcButtonClick} />
+                    </div>
+                    <div className="btn-group-vertical">
+                        <CalculatorButton value="+" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="-" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="*" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="/" onClick={this.handleCalcButtonClick} />
+                        <CalculatorButton value="=" onClick={this.handleProcessEpression} />
+                    </div>
                 </div>
             </div>
         );
