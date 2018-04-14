@@ -12,14 +12,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CalculatorView from '../../components/calculator-view';
 import s from './Home.css';
 
-const title = 'Class Calculator';
+const title = 'club labs calculator';
 
 function Home(props, context) {
   context.setTitle(title);
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <h1 className={s.title}>Class Calculator</h1>
+        <h1 className={s.title}>{title}</h1>
         <CalculatorView />
       </div>
     </div>

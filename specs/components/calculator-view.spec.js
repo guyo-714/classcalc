@@ -133,15 +133,13 @@ describe("Calculator View", function () {
 
     context("First zero button and any other button clicked", function () {
       beforeEach(function () {
-        this.firstButtonElement = ReactDOM.findDOMNode(this.buttonComponents[9]);
-        this.secondButtonElement = ReactDOM.findDOMNode(this.buttonComponents[1]);
+        CalcTestHelper.clickButtonWithValue(this.buttonComponents, "9");
+        CalcTestHelper.clickButtonWithValue(this.buttonComponents, "4");
       });
 
       it("should display firstButtonElement value and secondButtonElement value", function () {
-        TestUtils.Simulate.click(this.firstButtonElement);
-        TestUtils.Simulate.click(this.secondButtonElement);
         var displayLabel = TestUtils.findRenderedDOMComponentWithTag(this.displayComponent, "label");
-        displayLabel.textContent.should.equal(this.secondButtonElement.value);
+        displayLabel.textContent.should.equal('94');
       });
     });
 

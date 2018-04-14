@@ -9,11 +9,10 @@ var CalculatorButton = React.createClass({
     },
     render: function () {
         return (
-          <input type="button" className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" value={this.props.value} onClick={this.props.onClick}/>
+          <input type="button" className="num-btn" value={this.props.value} onClick={this.props.onClick}/>
         );
     }
 });
-
 
 module.exports = CalculatorButton;
 
